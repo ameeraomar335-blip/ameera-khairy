@@ -354,7 +354,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .couple .amp { color: var(--gold); font-size: .7em; }
 
 /* Great Vibes' capital A looks like a lowercase "a"; use Allura's clearer capital A */
-.cap-a { font-family: "Allura", var(--font-script); }
+.cap-a { font-family: "Allura", var(--font-script); font-size: 1.43em; line-height: 0; } /* same height as the script K */
 
 .divider { width: 200px; height: auto; margin: 8px auto; }
 
