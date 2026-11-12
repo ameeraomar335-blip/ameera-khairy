@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" stroke="#C9A96E">
+  <!-- Rub el hizb (8-point star) frame for the A & K monogram -->
+  <circle cx="100" cy="100" r="97" fill="#F7F2E7" stroke-width="1.6"/>
+  <circle cx="100" cy="100" r="91" stroke-width=".7"/>
+  <g stroke-width="1.2">
+    <rect x="38" y="38" width="124" height="124"/>
+    <rect x="38" y="38" width="124" height="124" transform="rotate(45 100 100)"/>
+  </g>
+  <g stroke-width=".6" stroke-opacity=".8">
+    <rect x="45" y="45" width="110" height="110"/>
+    <rect x="45" y="45" width="110" height="110" transform="rotate(45 100 100)"/>
+  </g>
+  <circle cx="100" cy="100" r="64" fill="#F7F2E7" stroke-width=".9"/>
+  <g fill="#C9A96E" stroke="none">
+    <circle cx="100" cy="6" r="2.4"/><circle cx="100" cy="194" r="2.4"/>
+    <circle cx="6" cy="100" r="2.4"/><circle cx="194" cy="100" r="2.4"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24" fill="none" stroke="#C9A96E" stroke-width="1">
+  <!-- Pucuk rebung (bamboo shoot) songket band -->
+  <path d="M0 1.5H48M0 22.5H48"/>
+  <path d="M4 22.5 24 4.5 44 22.5"/>
+  <path d="M11 22.5 24 10.5 37 22.5"/>
+  <path d="M24 14 27 17.5 24 21 21 17.5Z" fill="#C9A96E" stroke="none"/>
+  <path d="M0 7.5 3.5 11.5 0 15.5M48 7.5 44.5 11.5 48 15.5"/>
+</svg>

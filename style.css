@@ -1,0 +1,1226 @@
+/* =========================================================
+   Kad Kahwin Digital · Ameera & Khairy · 19.12.2026
+   Theme: cream + sage green songket
+   ========================================================= */
+
+:root {
+  /* Palette */
+  --cream: #F7F2E7;
+  --cream-deep: #EFE6D3;
+  --sage: #9CAF88;
+  --sage-deep: #6E8B64;
+  --sage-dark: #56714F;
+  --gold: #C9A96E;
+  --gold-light: #E3CD9C;
+  --gold-deep: #A88A4F;
+  --olive: #3F4A36;
+  --olive-soft: #5E6A52;
+
+  /* Type */
+  --font-script: "Great Vibes", "Pinyon Script", cursive;
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-arabic: "Amiri", "Traditional Arabic", serif;
+
+  /* Layout */
+  --card-max: 480px;
+  --gutter: 24px;
+
+  /* Subtle paper grain (inline SVG noise, ~1KB) */
+  --paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .24 .5 0 0 0 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--olive);
+  background-color: var(--cream-deep);
+  background-image: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.is-locked { overflow: hidden; }
+
+img { max-width: 100%; display: block; }
+
+button { font: inherit; color: inherit; cursor: pointer; }
+
+/* ---------- Shared ornaments ---------- */
+
+.songket-band {
+  height: 24px;
+  width: 100%;
+  background: url("assets/songket-border.svg") repeat-x center / auto 24px;
+  opacity: .9;
+}
+
+.monogram {
+  font-family: var(--font-script);
+  color: var(--gold-deep);
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .6);
+}
+.monogram .amp {
+  font-size: .62em;
+  margin: 0 .06em;
+  color: var(--gold);
+  vertical-align: .18em;
+}
+
+/* =========================================================
+   COVER · Pintu gerbang
+   ========================================================= */
+
+.cover {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, .75), rgba(255, 255, 255, 0) 62%),
+    var(--paper);
+  overflow: hidden;
+  transition: opacity 1.1s ease, transform 1.4s cubic-bezier(.55, 0, .3, 1), visibility 0s linear 1.4s;
+}
+
+.cover[hidden] { display: none; }
+
+.songket-band--bottom { transform: scaleY(-1); }
+
+/* ---------- Gate ---------- */
+
+.gate {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  padding: 8px 16px 0;
+}
+
+.gate-frame {
+  /* Arch: width follows height, capped by screen width */
+  height: min(64svh, 136vw, 600px);
+  aspect-ratio: 3 / 5;
+  max-width: 82vw;
+  padding: 9px;
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  background:
+    linear-gradient(135deg, var(--gold-light), var(--gold) 40%, var(--gold-deep) 70%, var(--gold-light));
+  box-shadow:
+    0 18px 40px -18px rgba(63, 74, 54, .55),
+    inset 0 0 0 1px rgba(255, 255, 255, .45);
+  animation: gate-rise 1.2s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+.gate-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  perspective: 1100px;
+  overflow: hidden;
+  /* outline of the arch opening */
+  box-shadow: 0 0 0 2px var(--cream), 0 0 0 3px var(--gold-deep);
+}
+
+/* The light seen through the doorway as it opens */
+.gate-light {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 50% 55%, #fffdf6 0%, #fbf3df 40%, var(--gold-light) 100%);
+}
+
+.door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: var(--sage-deep);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, .10), rgba(0, 0, 0, .12)),
+    url("assets/songket-lattice.svg");
+  background-size: auto, 26px 26px;
+  box-shadow: inset 0 0 0 1.5px var(--gold), inset 0 0 26px rgba(40, 52, 34, .45);
+  transition: transform 1.7s cubic-bezier(.65, .05, .25, 1);
+  backface-visibility: visible;
+  will-change: transform;
+}
+
+.door--left {
+  left: 0;
+  transform-origin: left center;
+  border-top-left-radius: 100% 30%;
+}
+.door--right {
+  right: 0;
+  transform-origin: right center;
+  border-top-right-radius: 100% 30%;
+}
+
+/* inner raised panel, framed in gold */
+.door-panel {
+  position: absolute;
+  top: 16%;
+  bottom: 5%;
+  border: 1px solid var(--gold-light);
+  box-shadow: inset 0 0 0 3px rgba(110, 139, 100, .9), inset 0 0 0 4px rgba(227, 205, 156, .55);
+  background: linear-gradient(180deg, rgba(156, 175, 136, .35), rgba(86, 113, 79, .2));
+}
+.door--left .door-panel  { left: 14%;  right: 9%;  border-top-left-radius: 100% 22%; }
+.door--right .door-panel { right: 14%; left: 9%;   border-top-right-radius: 100% 22%; }
+
+.door-knob {
+  position: absolute;
+  top: 60%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff4d6, var(--gold) 55%, var(--gold-deep));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+}
+.door--left .door-knob  { right: 5px; }
+.door--right .door-knob { left: 5px; }
+
+/* Monogram medallion over the seam */
+.medallion {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  width: 58%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  container-type: inline-size;
+  filter: drop-shadow(0 6px 14px rgba(40, 52, 34, .4));
+  transition: opacity .6s ease, transform .8s cubic-bezier(.5, 0, .3, 1);
+  z-index: 2;
+}
+.medallion img,
+.hero-mono img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.medallion .monogram {
+  position: relative;
+  font-size: 21cqw;
+  padding-top: .12em;
+}
+
+/* ---------- Cover text + button ---------- */
+
+.cover-text {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 6px var(--gutter) 4px;
+  text-align: center;
+  animation: fade-up 1s ease .5s backwards;
+  transition: opacity .5s ease;
+}
+
+.cover-line {
+  margin: 0;
+  max-width: 340px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  line-height: 1.9;
+  text-wrap: balance;
+  text-transform: uppercase;
+  color: var(--olive-soft);
+}
+.cover-line .dot { color: var(--gold); margin: 0 .3em; }
+.cover-line .nw { white-space: nowrap; }
+.cover-line .cover-eyebrow { display: block; color: var(--sage-deep); letter-spacing: .32em; }
+
+.btn-open {
+  position: relative;
+  padding: 12px 38px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--sage), var(--sage-deep));
+  color: var(--cream);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px rgba(201, 169, 110, .6), 0 10px 22px -10px rgba(63, 74, 54, .7);
+  animation: glow 2.6s ease-in-out 1.6s infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-open:active { transform: translateY(1px); }
+.btn-open:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 6px; }
+
+/* ---------- Opening sequence ---------- */
+
+.cover.is-opening .medallion {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.6);
+}
+.cover.is-opening .door--left  { transform: rotateY(82deg);  transition-delay: .35s; }
+.cover.is-opening .door--right { transform: rotateY(-82deg); transition-delay: .35s; }
+.cover.is-opening .cover-text  { opacity: 0; }
+
+/* walk through the gate */
+.cover.is-gone {
+  opacity: 0;
+  transform: scale(1.35);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.card {
+  position: relative;
+  max-width: var(--card-max);
+  margin: 0 auto;
+  min-height: 100svh;
+  background-color: var(--cream);
+  background-image: var(--paper);
+  box-shadow: 0 0 60px rgba(63, 74, 54, .12);
+  overflow: hidden;
+}
+
+.section {
+  padding: 48px var(--gutter);
+  text-align: center;
+}
+
+.hero {
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero .songket-band { margin: 0 calc(var(--gutter) * -1) 40px; width: calc(100% + var(--gutter) * 2); }
+
+.hero-mono {
+  position: relative;
+  width: 150px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+}
+.hero-mono .monogram { position: relative; font-size: 32px; padding-top: .12em; }
+
+.eyebrow {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+}
+
+.couple {
+  margin: 4px 0 8px;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(46px, 13vw, 60px);
+  line-height: 1.15;
+  color: var(--olive);
+}
+.couple .amp { color: var(--gold); font-size: .7em; }
+
+.divider { width: 200px; height: auto; margin: 8px auto; }
+
+.hero-date {
+  margin: 6px 0 0;
+  font-size: 17px;
+  letter-spacing: .12em;
+  color: var(--olive-soft);
+}
+
+/* ---------- Section headings ---------- */
+
+.section-title {
+  margin: 0;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1.2;
+  color: var(--sage-deep);
+  text-wrap: balance;
+}
+.section-title--light { color: var(--cream); }
+
+.divider--sm { width: 150px; margin: 14px auto; }
+
+.arabic {
+  font-family: var(--font-arabic);
+  color: var(--olive);
+  line-height: 1.9;
+  margin: 0;
+}
+
+/* ---------- 1. Pembukaan ---------- */
+
+.opening { padding-top: 24px; }
+
+.arch-panel {
+  position: relative;
+  padding: 56px 18px 36px;
+  border: 1px solid var(--gold);
+  border-radius: 200px 200px 14px 14px / 160px 160px 14px 14px;
+  background: linear-gradient(180deg, rgba(255, 253, 246, .85), rgba(255, 253, 246, .35));
+  box-shadow:
+    inset 0 0 0 5px var(--cream),
+    inset 0 0 0 6px rgba(201, 169, 110, .45),
+    0 14px 30px -22px rgba(63, 74, 54, .5);
+}
+
+.bismillah {
+  font-size: clamp(19px, 5.9vw, 27px);
+  white-space: nowrap;
+  color: var(--sage-dark);
+}
+.salam { font-size: clamp(20px, 5.8vw, 24px); }
+
+.ayat {
+  margin: 22px 0 0;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--olive);
+}
+.ayat p { margin: 0; }
+.ayat cite {
+  display: inline-block;
+  margin-top: 12px;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+/* ---------- 2. Jemputan ---------- */
+
+.lead {
+  margin: 18px auto;
+  max-width: 380px;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.parents,
+.bride-groom { margin: 22px 0; }
+
+.name-caps {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-wrap: balance;
+  text-transform: uppercase;
+  color: var(--olive);
+  line-height: 1.45;
+}
+
+.amp-script {
+  margin: 2px 0;
+  font-family: var(--font-script);
+  font-size: 30px;
+  line-height: 1;
+  color: var(--gold);
+}
+.amp-script--lg { font-size: 40px; margin: 10px 0 4px; }
+
+.script-name {
+  margin: 0;
+  font-family: var(--font-script);
+  font-size: clamp(50px, 15vw, 62px);
+  line-height: 1.1;
+  color: var(--olive);
+}
+.full-name {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+}
+
+/* ---------- 3. Butiran Majlis ---------- */
+
+.details {
+  position: relative;
+  padding: 0 var(--gutter);
+  color: var(--cream);
+  background-color: var(--sage-deep);
+  background-image:
+    linear-gradient(180deg, rgba(86, 113, 79, .55), rgba(86, 113, 79, .9)),
+    url("assets/songket-lattice.svg");
+  background-size: auto, 30px 30px;
+}
+.details .songket-band {
+  margin: 0 calc(var(--gutter) * -1);
+  width: calc(100% + var(--gutter) * 2);
+  opacity: 1;
+}
+.details .section-title { padding-top: 34px; }
+.songket-band--flip { transform: scaleY(-1); }
+
+.detail-list {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0 0 36px;
+  display: grid;
+  gap: 26px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+  border: 1px solid var(--gold-light);
+  border-radius: 50%;
+  color: var(--gold-light);
+  box-shadow: 0 0 0 4px rgba(247, 242, 231, .08);
+}
+.detail-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.detail-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+.detail-value {
+  margin-top: 2px;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.detail-sub {
+  max-width: 320px;
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: .9;
+}
+
+/* ---------- 4. Atur Cara ---------- */
+
+.timeline {
+  list-style: none;
+  position: relative;
+  margin: 26px auto 0;
+  padding: 0;
+  max-width: 340px;
+  text-align: left;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--gold) 12%, var(--gold) 88%, transparent);
+}
+.timeline li {
+  position: relative;
+  padding: 0 0 26px 38px;
+}
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before {
+  /* small gold diamond on the line */
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 7px;
+  width: 11px;
+  height: 11px;
+  transform: rotate(45deg);
+  background: var(--cream);
+  border: 1px solid var(--gold-deep);
+  box-shadow: inset 0 0 0 2px var(--cream), inset 0 0 0 6px var(--gold);
+}
+.timeline .time {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.timeline .event {
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ---------- Shared buttons ---------- */
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+.btn-row .btn { flex: 1 1 0; min-width: 0; max-width: 180px; padding-inline: 8px; gap: 6px; font-size: 15px; letter-spacing: .03em; white-space: nowrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 138px;
+  padding: 11px 20px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.btn--solid {
+  border: 1px solid var(--gold);
+  background: linear-gradient(180deg, var(--sage), var(--sage-deep));
+  color: var(--cream);
+  box-shadow: 0 8px 18px -10px rgba(63, 74, 54, .8);
+}
+.btn--outline {
+  border: 1px solid var(--sage-deep);
+  background: rgba(255, 253, 246, .7);
+  color: var(--sage-dark);
+}
+.btn:focus-visible,
+.icon-btn:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
+
+/* ---------- 5. Menghitung Hari ---------- */
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 360px;
+  margin: 24px auto 0;
+}
+.countdown[hidden] { display: none; }
+
+.cd-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 4px 10px;
+  border: 1px solid rgba(201, 169, 110, .7);
+  border-radius: 40px 40px 8px 8px;
+  background: rgba(255, 253, 246, .75);
+  box-shadow: inset 0 0 0 3px var(--cream), inset 0 0 0 4px rgba(201, 169, 110, .35);
+}
+.cd-num {
+  font-size: clamp(26px, 8vw, 34px);
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--sage-dark);
+}
+.cd-label {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.countdown-done {
+  margin: 24px auto 0;
+  max-width: 320px;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--sage-dark);
+}
+.countdown-note {
+  margin: 18px 0 0;
+  font-size: 15px;
+  letter-spacing: .1em;
+  color: var(--olive-soft);
+}
+
+/* ---------- 6. Lokasi ---------- */
+
+.location { padding-top: 16px; }
+
+.venue-card {
+  margin-top: 22px;
+  padding: 30px 16px 26px;
+  border: 1px solid rgba(201, 169, 110, .7);
+  border-radius: 14px;
+  background: rgba(255, 253, 246, .7);
+  box-shadow: inset 0 0 0 4px var(--cream), inset 0 0 0 5px rgba(201, 169, 110, .35);
+}
+.venue-pin {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: var(--sage-deep);
+  color: var(--gold-light);
+  box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--gold);
+}
+.venue-pin svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.venue-name {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--olive);
+  text-wrap: balance;
+}
+.venue-address {
+  margin: 6px auto 0;
+  max-width: 320px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--olive-soft);
+}
+
+/* ---------- 9. Doa (sage band, like Butiran Majlis) ---------- */
+
+.doa {
+  padding: 0 var(--gutter);
+  color: var(--cream);
+  background-color: var(--sage-deep);
+  background-image:
+    linear-gradient(180deg, rgba(86, 113, 79, .55), rgba(86, 113, 79, .9)),
+    url("assets/songket-lattice.svg");
+  background-size: auto, 30px 30px;
+}
+.doa .songket-band {
+  margin: 0 calc(var(--gutter) * -1);
+  width: calc(100% + var(--gutter) * 2);
+  opacity: 1;
+}
+.doa .section-title {
+  padding-top: 34px;
+  font-size: 38px;
+}
+.doa-arabic {
+  margin: 20px 0 0;
+  font-size: clamp(22px, 6.4vw, 27px);
+  line-height: 2.1;
+  color: var(--cream);
+}
+.ayat--light {
+  margin: 16px 0 0;
+  padding-bottom: 36px;
+  color: var(--cream);
+}
+.ayat--light cite { color: var(--gold-light); }
+
+/* ---------- 10. Hubungi Kami ---------- */
+
+.contact-list {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.contact-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 14px 20px;
+  border: 1px solid rgba(201, 169, 110, .6);
+  border-radius: 14px;
+  background: rgba(255, 253, 246, .7);
+  text-align: left;
+}
+.contact-info { display: flex; flex-direction: column; min-width: 0; }
+.contact-name {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.contact-phone {
+  font-size: 15px;
+  letter-spacing: .04em;
+  font-variant-numeric: lining-nums;
+  color: var(--olive-soft);
+}
+.contact-actions { display: flex; gap: 10px; flex-shrink: 0; }
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--sage-deep);
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--sage-dark);
+  -webkit-tap-highlight-color: transparent;
+}
+.icon-btn--wa {
+  border-color: var(--gold);
+  background: var(--sage-deep);
+  color: var(--cream);
+}
+.icon-btn svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- 11. Penutup ---------- */
+
+.closing { padding-top: 24px; padding-bottom: 0; }
+.closing-doa {
+  margin: 6px 0 0;
+  font-size: clamp(19px, 5.4vw, 24px);
+  text-wrap: balance;
+  color: var(--sage-dark);
+}
+.jazakum {
+  margin: 10px 0 0;
+  font-size: clamp(22px, 6.4vw, 27px);
+  color: var(--gold-deep);
+}
+.hero-mono--sm {
+  width: 110px;
+  margin: 30px auto 8px;
+}
+.hero-mono--sm .monogram { font-size: 24px; }
+.closing-date {
+  margin: 0 0 34px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--olive-soft);
+}
+.closing .songket-band {
+  margin: 0 calc(var(--gutter) * -1);
+  width: calc(100% + var(--gutter) * 2);
+}
+
+/* ---------- 7. RSVP ---------- */
+
+.rsvp .eyebrow { margin-bottom: 2px; }
+
+.rsvp-note {
+  margin: 8px 0 0;
+  font-size: 17px;
+  color: var(--olive-soft);
+}
+.rsvp-note strong { color: var(--sage-dark); }
+
+.form-card {
+  margin-top: 22px;
+  padding: 24px 20px;
+  border: 1px solid rgba(201, 169, 110, .7);
+  border-radius: 14px;
+  background: rgba(255, 253, 246, .8);
+  box-shadow: inset 0 0 0 4px var(--cream), inset 0 0 0 5px rgba(201, 169, 110, .35);
+  text-align: left;
+}
+.form-card[hidden] { display: none; }
+
+.field {
+  display: block;
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.field[hidden] { display: none; }
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+}
+.field-label em {
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: none;
+  color: var(--olive-soft);
+}
+
+.field input[type="text"],
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid rgba(110, 139, 100, .5);
+  border-radius: 10px;
+  background: #fffdf8;
+  font: inherit;
+  font-size: 17px; /* ≥16px stops iPhone zooming in */
+  color: var(--olive);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.field textarea { resize: vertical; min-height: 110px; line-height: 1.5; }
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%236E8B64' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+.field input::placeholder,
+.field textarea::placeholder { color: #9a9d8c; font-style: italic; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, .25);
+}
+.field.is-invalid input,
+.field.is-invalid .choice span { border-color: #b5654a; }
+
+.choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.choice label { position: relative; cursor: pointer; }
+.choice input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.choice span {
+  display: block;
+  padding: 11px 6px;
+  border: 1px solid rgba(110, 139, 100, .5);
+  border-radius: 10px;
+  background: #fffdf8;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--olive-soft);
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.choice input:checked + span {
+  border-color: var(--gold);
+  background: var(--sage-deep);
+  color: var(--cream);
+}
+.choice input:focus-visible + span { box-shadow: 0 0 0 3px rgba(201, 169, 110, .35); }
+
+.counter {
+  display: block;
+  margin-top: 4px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--olive-soft);
+}
+
+/* honeypot: off-screen, not display:none (some bots skip hidden fields) */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-error {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #f6e6dc;
+  color: #8a3f27;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.form-error[hidden] { display: none; }
+
+.btn--block {
+  width: 100%;
+  padding: 13px 20px;
+  font-size: 17px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.btn[disabled] { opacity: .75; cursor: wait; }
+
+.spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(247, 242, 231, .4);
+  border-top-color: var(--cream);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+.is-loading .spinner { display: inline-block; }
+
+.rsvp-msg { text-align: center; }
+.rsvp-msg .nw { white-space: nowrap; }
+.msg-title, .msg-sub { text-wrap: balance; }
+.msg-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--sage-deep);
+  color: var(--cream);
+  box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--gold);
+}
+.msg-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.msg-title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--sage-dark);
+}
+.msg-sub {
+  margin: 6px 0 18px;
+  font-size: 17px;
+  color: var(--olive-soft);
+}
+.rsvp-msg .msg-sub:last-child { margin-bottom: 0; }
+
+/* ---------- 8. Ucapan & Doa Restu ---------- */
+
+.wishes { padding-top: 16px; }
+
+.pax-stat {
+  margin: 10px 0 0;
+  font-size: 16px;
+  color: var(--olive-soft);
+}
+.pax-stat strong { color: var(--sage-dark); font-size: 19px; }
+
+.wish-wall {
+  position: relative;
+  margin-top: 20px;
+  max-height: 480px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px 4px 20px;
+  display: grid;
+  gap: 12px;
+  text-align: left;
+  -webkit-mask-image: linear-gradient(180deg, #000 88%, transparent);
+          mask-image: linear-gradient(180deg, #000 88%, transparent);
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) transparent;
+}
+.wish-wall.is-short { -webkit-mask-image: none; mask-image: none; }
+
+.wish-status {
+  margin: 10px 0;
+  text-align: center;
+  font-style: italic;
+  color: var(--olive-soft);
+}
+
+.wish {
+  position: relative;
+  margin: 0;
+  padding: 16px 18px 14px 20px;
+  border: 1px solid rgba(201, 169, 110, .5);
+  border-left: 3px solid var(--sage);
+  border-radius: 6px 12px 12px 6px;
+  background: rgba(255, 253, 246, .85);
+}
+.wish.is-new { animation: fade-up .6s ease both; }
+.wish-text {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.55;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.wish-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 8px;
+}
+.wish-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sage-dark);
+  overflow-wrap: anywhere;
+}
+.wish-date {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--olive-soft);
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* =========================================================
+   MUSIC TOGGLE
+   ========================================================= */
+
+.music-btn {
+  position: fixed;
+  right: max(16px, calc(50% - var(--card-max) / 2 + 16px));
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 40;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: rgba(110, 139, 100, .92);
+  color: var(--cream);
+  box-shadow: 0 0 0 3px rgba(247, 242, 231, .85), 0 8px 18px -8px rgba(63, 74, 54, .8);
+  animation: fade-up .6s ease backwards;
+  -webkit-tap-highlight-color: transparent;
+}
+.music-btn[hidden] { display: none; }
+.music-btn svg { width: 22px; height: 22px; }
+.music-btn .icon-paused { display: none; }
+.music-btn[aria-pressed="false"] .icon-playing { display: none; }
+.music-btn[aria-pressed="false"] .icon-paused { display: block; }
+.music-btn[aria-pressed="true"] .icon-playing { animation: spin-slow 6s linear infinite; }
+.music-btn:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 4px; }
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes gate-rise {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px rgba(201, 169, 110, .6), 0 10px 22px -10px rgba(63, 74, 54, .7); }
+  50%      { box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px rgba(201, 169, 110, .6), 0 0 22px 2px rgba(201, 169, 110, .55); }
+}
+@keyframes spin-slow {
+  0%, 100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(8deg); }
+}
+
+/* ---------- Small / short screens ---------- */
+
+@media (max-height: 620px) {
+  .gate-frame { height: min(58svh, 120vw); }
+  .cover-text { gap: 10px; }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .door, .cover, .medallion { transition-duration: .4s !important; }
+  .reveal { transform: none; transition-duration: .3s; }
+}
