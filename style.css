@@ -64,27 +64,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   opacity: .9;
 }
 
-/* Jawi monogram: alif over kha, interlaced */
-.mono-jawi {
-  position: absolute;
-  left: 18%;
-  top: 18%;
-  width: 64%;
-  height: 64%;
-  overflow: visible;
-}
-.mono-jawi text {
-  font-family: var(--font-arabic);
-  font-weight: 700;
-  text-anchor: middle;
-  fill: var(--gold-deep);
-}
-.mono-jawi .mj-alif {
-  stroke: var(--cream);
-  stroke-width: 9;
-  stroke-linejoin: round;
-  paint-order: stroke;
-}
+/* Jawi monogram (assets/monogram-jawi.svg) sits over the star frame */
+.mono-jawi { z-index: 1; }
 
 .monogram {
   font-family: var(--font-script);
