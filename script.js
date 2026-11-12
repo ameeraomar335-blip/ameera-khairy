@@ -100,6 +100,9 @@ const CONFIG = {
       card.removeAttribute("aria-hidden");
       musicBtn.hidden = false;
       startReveal();
+      // Links like …/#rsvp jump to that section once the gate is open
+      const target = location.hash && document.getElementById(location.hash.slice(1));
+      if (target) setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "start" }), 400);
     }, doorsTime);
 
     setTimeout(() => { cover.hidden = true; }, doorsTime + 1500);
