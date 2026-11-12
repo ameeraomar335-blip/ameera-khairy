@@ -353,6 +353,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .couple .amp { color: var(--gold); font-size: .7em; }
 
+/* Great Vibes' capital A looks like a lowercase "a"; use Allura's clearer capital A */
+.cap-a { font-family: "Allura", var(--font-script); }
+
 .divider { width: 200px; height: auto; margin: 8px auto; }
 
 .hero-date {
