@@ -64,9 +64,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   opacity: .9;
 }
 
-/* Jawi monogram (assets/monogram-jawi.svg) sits over the star frame */
-.mono-jawi { z-index: 1; }
-
 .monogram {
   font-family: var(--font-script);
   color: var(--gold-deep);
