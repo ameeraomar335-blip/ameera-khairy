@@ -247,9 +247,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cover-line {
   margin: 0;
   max-width: 340px;
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: .16em;
+  letter-spacing: .12em;
   line-height: 1.9;
   text-wrap: balance;
   text-transform: uppercase;
@@ -437,6 +437,27 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .parents,
 .bride-groom { margin: 22px 0; }
+
+.lead--tight { margin-bottom: 10px; }
+
+.salutation {
+  margin: 0 auto 6px;
+  max-width: 380px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.75;
+  letter-spacing: .02em;
+  color: var(--sage-dark);
+  text-wrap: balance;
+}
+.salutation span { display: block; white-space: nowrap; }
+.salutation i {
+  font-style: normal;
+  font-weight: 400;
+  margin: 0 .2em;
+  color: var(--gold);
+}
+.salutation + .lead { margin-top: 10px; }
 
 .name-caps {
   margin: 0;
@@ -683,9 +704,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .cd-label {
   margin-top: 2px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: .12em;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--gold-deep);
 }
