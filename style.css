@@ -850,6 +850,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .contact-actions { display: flex; gap: 10px; flex-shrink: 0; }
 
+/* One name, several numbers (Paksu & Maksu) */
+.contact-card--multi { flex-direction: column; align-items: stretch; gap: 8px; }
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .icon-btn {
   display: grid;
   place-items: center;
