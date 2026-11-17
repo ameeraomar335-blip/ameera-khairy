@@ -375,6 +375,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   line-height: 1.2;
   color: var(--sage-deep);
   text-wrap: balance;
+  word-spacing: .08em; /* Great Vibes sets words almost touching ("ButiranMajlis") */
 }
 .section-title--light { color: var(--cream); }
 
@@ -417,7 +418,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   line-height: 1.7;
   color: var(--olive);
 }
-.ayat p { margin: 0; }
+.ayat p { margin: 0; text-wrap: pretty; }
 .ayat cite {
   display: inline-block;
   margin-top: 12px;
@@ -436,6 +437,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   max-width: 380px;
   font-size: 19px;
   line-height: 1.7;
+  text-wrap: pretty; /* no lone word on the last line */
 }
 
 .parents,
@@ -496,6 +498,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--sage-deep);
+  text-wrap: balance;
 }
 
 /* ---------- 3. Butiran Majlis ---------- */
@@ -565,6 +568,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font-size: 21px;
   font-weight: 600;
   line-height: 1.35;
+  text-wrap: balance;
 }
 .detail-sub {
   max-width: 320px;
@@ -572,6 +576,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font-size: 17px;
   line-height: 1.5;
   opacity: .9;
+  text-wrap: balance;
 }
 
 /* ---------- 4. Atur Cara ---------- */
@@ -774,6 +779,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font-size: 17px;
   line-height: 1.55;
   color: var(--olive-soft);
+  text-wrap: balance;
 }
 
 /* ---------- 9. Doa (sage band, like Butiran Majlis) ---------- */
@@ -1107,6 +1113,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---------- 8. Ucapan & Doa Restu ---------- */
 
 .wishes { padding-top: 16px; }
+.wishes .section-title { word-spacing: normal; } /* keeps it on one line on phones */
 
 .pax-stat {
   margin: 10px 0 0;
