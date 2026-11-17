@@ -826,16 +826,31 @@ button { font: inherit; color: inherit; cursor: pointer; }
   gap: 12px;
 }
 .contact-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 14px 14px 20px;
+  padding: 14px 14px 6px 20px;
   border: 1px solid rgba(201, 169, 110, .6);
   border-radius: 14px;
   background: rgba(255, 253, 246, .7);
   text-align: left;
 }
+/* Small gold heading on each card, e.g. "IBU BAPA PENGANTIN" */
+.contact-group {
+  margin: 0 0 2px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+/* One person / number per row, hairline between rows */
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 0;
+}
+.contact-row + .contact-row { border-top: 1px solid rgba(201, 169, 110, .35); }
 .contact-info { display: flex; flex-direction: column; min-width: 0; }
 .contact-name {
   font-size: 19px;
@@ -849,15 +864,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   color: var(--olive-soft);
 }
 .contact-actions { display: flex; gap: 10px; flex-shrink: 0; }
-
-/* One name, several numbers (Paksu & Maksu) */
-.contact-card--multi { flex-direction: column; align-items: stretch; gap: 8px; }
-.contact-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
 
 .icon-btn {
   display: grid;
