@@ -70,7 +70,7 @@ Use the Google account you want to own the RSVP list.
 
 ## Day-to-day use
 
-- **Who's coming:** every RSVP is a new row in the **RSVP** tab. The card shows the total number of guests (all "Bilangan" for "Hadir") above the ucapan wall.
+- **Who's coming:** every RSVP is a new row in the **RSVP** tab. The guest total is private: it is not shown on the card. To see it, add up the "Bilangan" column for "Hadir" rows in the Sheet, e.g. `=SUMIF(C:C,"Hadir",D:D)`.
 - **Hide an ucapan:** type `x` in column **F (Sembunyi)** on that row. It disappears from the wall within a minute (their RSVP still counts).
 - **RSVP closing:** the form closes automatically after **5 December 2026** (Malaysia time).
 

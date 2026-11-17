@@ -1115,13 +1115,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .wishes { padding-top: 16px; }
 .wishes .section-title { word-spacing: normal; } /* keeps it on one line on phones */
 
-.pax-stat {
-  margin: 10px 0 0;
-  font-size: 16px;
-  color: var(--olive-soft);
-}
-.pax-stat strong { color: var(--sage-dark); font-size: 19px; }
-
 .wish-wall {
   position: relative;
   margin-top: 20px;

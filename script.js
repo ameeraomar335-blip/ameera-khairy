@@ -153,7 +153,6 @@ const CONFIG = {
   /* ---------------- Ucapan wall ---------------- */
 
   const wall = document.getElementById("wishWall");
-  const paxStat = document.getElementById("paxStat");
 
   const dateFmt = new Intl.DateTimeFormat("ms-MY", {
     day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kuala_Lumpur",
@@ -211,13 +210,6 @@ const CONFIG = {
       .then((data) => {
         if (!data || !data.ok) throw new Error("bad response");
         renderWishes(data.wishes || []);
-        if (data.hadirPax > 0) {
-          paxStat.innerHTML = "";
-          const strong = document.createElement("strong");
-          strong.textContent = data.hadirPax;
-          paxStat.append(strong, " tetamu telah mengesahkan kehadiran");
-          paxStat.hidden = false;
-        }
       })
       .catch(() => setWallStatus("Ucapan tidak dapat dimuatkan buat masa ini. Sila cuba sebentar lagi."));
   }

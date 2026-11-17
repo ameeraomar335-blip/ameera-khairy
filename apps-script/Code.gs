@@ -60,20 +60,14 @@ function doPost(e) {
   return json_({ ok: true });
 }
 
-/* ---------------- GET: wishes for the wall + total pax ---------------- */
+/* ---------------- GET: wishes for the wall (guest totals stay private, see the Sheet) ---------------- */
 
 function doGet() {
   const rows = getSheet_().getDataRange().getValues().slice(1); // skip header
-  let hadirPax = 0;
-  let hadirCount = 0;
   const wishes = [];
 
   rows.forEach(function (r) {
-    const ts = r[0], nama = r[1], kehadiran = r[2], bilangan = r[3], ucapan = r[4], hide = r[5];
-    if (kehadiran === 'Hadir') {
-      hadirCount++;
-      hadirPax += Number(bilangan) || 0;
-    }
+    const ts = r[0], nama = r[1], ucapan = r[4], hide = r[5];
     if (ucapan && !hide) {
       wishes.push({
         nama: String(nama),
@@ -86,8 +80,6 @@ function doGet() {
   wishes.reverse(); // newest first
   return json_({
     ok: true,
-    hadirPax: hadirPax,
-    hadirCount: hadirCount,
     wishes: wishes.slice(0, MAX_WISHES_SHOWN),
   });
 }
