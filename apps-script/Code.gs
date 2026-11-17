@@ -14,7 +14,7 @@ const HEADERS = ['Timestamp', 'Nama', 'Kehadiran', 'Bilangan', 'Ucapan', 'Sembun
 
 const MAX_NAME = 60;      // characters
 const MAX_WISH = 500;     // characters
-const MAX_PAX = 5;        // guests per RSVP
+const MAX_PAX = 2;       // guests per RSVP
 const MAX_WISHES_SHOWN = 300;
 // RSVP closes at the end of 5 Dec 2026, Malaysia time
 const DEADLINE = new Date('2026-12-05T23:59:59+08:00');
